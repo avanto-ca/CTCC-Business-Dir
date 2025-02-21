@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .form-input {
+    @apply block w-full rounded-md shadow-sm text-gray-900 bg-white placeholder-gray-400;
+  }
+}
+
+/* Reset container styles from HTML content */
+.prose .container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Ensure links are clickable and properly styled */
+.prose a {
+  cursor: pointer !important;
+  transition: color 0.2s ease-in-out !important;
+  text-decoration: none !important;
+}
+
+.prose a:hover {
+  color: #6D28D9 !important;
+  text-decoration: underline !important;
+}
+
+/* Ensure images are responsive */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+  border-radius: 0.5rem;
+}
+
+/* Fix external links */
+.prose a[href^="http"],
+.prose a[href^="https"] {
+  color: #7C3AED !important;
+  font-weight: 500;
+  padding: 0.125rem 0;
+}
+
+.prose a[href^="http"]:hover,
+.prose a[href^="https"]:hover {
+  color: #6D28D9 !important;
+  text-decoration: underline;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* Square aspect ratio */
+  height: 100%;
+  min-height: 450px;
+}
+
+.map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0.75rem;
+}

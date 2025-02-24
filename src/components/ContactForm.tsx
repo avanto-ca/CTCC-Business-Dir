@@ -61,7 +61,7 @@ export function ContactForm({ recipientName, recipientEmail }: ContactFormProps)
       }
 
       // Then send email
-      const response = await fetch('/send-email', {
+      const response = await fetch('/.netlify/functions/sendmail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

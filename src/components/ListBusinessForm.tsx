@@ -110,7 +110,7 @@ export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
             ) : (
               <>
                 <div className="relative bg-gradient-to-r from-purple-600 to-indigo-600 p-8 overflow-hidden">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_transparent_2px)] bg-[length:16px_16px] opacity-25"></div>
+                  <div className="inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_transparent_2px)] bg-[length:16px_16px] opacity-25"></div>
                   <div className="flex justify-between items-start">
                     <div className="relative">
                       <h2 className="text-3xl font-bold text-white mb-3">List Your Business</h2>

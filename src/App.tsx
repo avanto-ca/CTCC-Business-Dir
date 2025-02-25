@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as Icons from 'lucide-react';
-import { Search, ChevronRight, MapPin, Mail, Phone, Globe, ArrowLeft, Share2, Facebook, Linkedin, Twitter, Instagram, Copy, Building2, User, PlusCircle, ListPlus } from 'lucide-react';
+import { Search, ChevronRight, MapPin, Mail, Phone, Globe, ArrowLeft, Share2, Facebook, Linkedin, Twitter, Instagram, Copy, Building2, User, PlusCircle, ListPlus, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import DOMPurify from 'dompurify';
@@ -263,12 +263,12 @@ function App() {
           member.Name || '',
           member.Firstname || '',
           member.Lastname || '',
-          member.phone || '',
-          member.address || '',
-          member.aboutus || '',
-          categoryName,
-          category.description,
-          ...category.seo_tags
+          // member.phone || '',
+          // member.address || '',
+          // member.aboutus || '',
+          // categoryName,
+          // category.description,
+          // ...category.seo_tags
         ];
 
         // Check if any field contains the search term
@@ -332,6 +332,7 @@ function App() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
+            style={{display:"flex"}}
             className="relative z-20" // add "z-20" by Blazingcoders 21-02-2025
           >
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -345,6 +346,16 @@ function App() {
               onChange={(e) => setSearchTerm(e.target.value)}
               aria-label="Search businesses"
             />
+            {searchTerm&&
+            <div className="absolute inset-y-0 right-0 pl-3 flex items-center">
+            <button
+              onClick={()=>setSearchTerm("")}
+              className="p-2 rounded-full transition-all duration-300"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            </div>
+            }
           </motion.div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>

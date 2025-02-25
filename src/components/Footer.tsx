@@ -33,7 +33,7 @@ export function Footer() {
               href="https://avanto.ca/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-purple-600 hover:text-purple-800 hover:underline transition-colors"
+              className="text-purple-600 hover:text-purple-800 hover:underline transition-colors ml-1"
             >
               Avanto
             </a>

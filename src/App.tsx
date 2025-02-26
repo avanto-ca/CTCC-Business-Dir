@@ -12,6 +12,7 @@ import type { Member, Category, CommunityMember } from './types';
 import { supabase } from './lib/supabase';
 
 function App() {
+
   const navigate = useNavigate();
   const { category, memberId } = useParams();
   const location = useLocation();
@@ -115,7 +116,7 @@ function App() {
 
   useEffect(() => {
     async function fetchMemberDetails() {
-      if (memberId && category) {
+      if (memberId && category) {      
         const names = memberId.split('-');
         if (names.length !== 2) {
           navigate(`/${category}`);
@@ -123,9 +124,8 @@ function App() {
         }
 
         const [firstName, lastName] = names;
-        const categoryData = categories.find(c => c.name === category);
-        
-        if (!categoryData) {
+        const categoryData = categories.find(c => c.url === category);
+        if (!categoryData) {       
           navigate('/');
           return;
         }
@@ -170,7 +170,7 @@ function App() {
   // Shuffle members when category changes
   useEffect(() => {
     if (selectedCategory) {
-      const categoryId = categories.find(c => c.name === selectedCategory)?.id;
+      const categoryId = categories.find(c => c.url === selectedCategory)?.id;
       const categoryMembers = categoryId ? members.filter(m => m.category_id === categoryId) : [];
       const shuffled = [...categoryMembers].sort(() => Math.random() - 0.5);
       setShuffledMembers(shuffled);
@@ -178,7 +178,7 @@ function App() {
   }, [selectedCategory, members, categories]);
 
   useEffect(() => {
-    if (category && !categories.some(c => c.name === category)) {
+    if (category && !categories.some(c => c.url === category)) {
       navigate('/');
     }
   }, [category, categories, navigate]);
@@ -201,7 +201,7 @@ function App() {
     }
 
     const memberSlug = `${member.Firstname}-${member.Lastname}`;
-    navigate(`/${category.name}/${memberSlug}`);
+    navigate(`/${category.url}/${memberSlug.toLowerCase()}`);
   };
 
   const handleBackToCategories = () => {
@@ -415,7 +415,7 @@ function App() {
               whileHover={{ scale: 1.02, y: -4, boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)' }}
               whileTap={{ scale: 0.98 }}
               key={category.name}
-              onClick={() => handleCategoryClick(category.name)}
+              onClick={() => handleCategoryClick(category.url)}
               className={`group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:border-[#7A2B8F] border-2 border-transparent backdrop-blur-sm ${category.color.replace('bg-', 'hover:border-')}`}
             >
               <div className={`absolute inset-0 ${category.color} opacity-5 group-hover:opacity-10 transition-opacity`}></div>

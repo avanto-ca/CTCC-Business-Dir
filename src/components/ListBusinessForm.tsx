@@ -9,6 +9,7 @@ interface ListBusinessFormProps {
 }
 
 export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',

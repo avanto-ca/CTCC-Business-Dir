@@ -125,8 +125,8 @@ function App() {
 
         const [firstName, lastName] = names;
         const categoryData = categories.find(c => c.url === category);
-        if (!categoryData) {       
-          navigate('/');
+        if (!categoryData) {     
+          // navigate('/');
           return;
         }
 
@@ -179,7 +179,7 @@ function App() {
 
   useEffect(() => {
     if (category && !categories.some(c => c.url === category)) {
-      navigate('/');
+      // navigate('/');
     }
   }, [category, categories, navigate]);
 
@@ -213,7 +213,7 @@ function App() {
       setSelectedMemberData(null);
       navigate(`/${selectedCategory}`);
     } else {
-      navigate('/');
+      // navigate('/');
     }
   };
 
@@ -526,7 +526,7 @@ function App() {
 
           {/* Non-Paid Members */}
           {communityMembers
-            .filter(member => member.category_id === categories.find(c => c.name === selectedCategory)?.id)
+            .filter(member => member.category_id === categories.find(c => c.url === selectedCategory)?.id)
             .length > 0 && (
           <div> 
             <div className="mb-8 pb-2 border-b border-gray-200">
@@ -539,7 +539,7 @@ function App() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {communityMembers
-                .filter(member => member.category_id === categories.find(c => c.name === selectedCategory)?.id)
+                .filter(member => member.category_id === categories.find(c => c.url === selectedCategory)?.id)
                 .map((member) => (
                 <div 
                   key={member.id}
@@ -964,7 +964,7 @@ function App() {
     <div>
       <SEOHead 
         member={selectedMemberData || undefined}
-        category={categories.find(c => c.name === category) || undefined}
+        category={categories.find(c => c.url === category) || undefined}
         isHomePage={!category && !memberId}
       />
       <ListBusinessForm 

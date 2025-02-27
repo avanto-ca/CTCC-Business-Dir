@@ -416,6 +416,7 @@ function App() {
               whileTap={{ scale: 0.98 }}
               key={category.name}
               onClick={() => handleCategoryClick(category.url)}
+              // style={{backgroundColor:"red"}}
               className={`group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:border-[#7A2B8F] border-2 border-transparent backdrop-blur-sm ${category.color.replace('bg-', 'hover:border-')}`}
             >
               <div className={`absolute inset-0 ${category.color} opacity-5 group-hover:opacity-10 transition-opacity`}></div>
@@ -424,6 +425,7 @@ function App() {
                   <motion.div 
                     whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                     transition={{ duration: 0.5 }}
+                    // style={{backgroundColor:category.color}}
                     className={`p-3 rounded-xl ${category.color} bg-opacity-15 transform group-hover:scale-110 transition-transform duration-300`}
                   >
                     <Icon className={`w-6 h-6 ${category.color.replace('bg-', 'text-')}`} />
@@ -449,8 +451,29 @@ function App() {
     </div>
   );
 
-  const renderCategory = () => (
+  const renderCategory = () => (    
+    
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-3xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-2xl p-6 mb-8 backdrop-blur-sm transform hover:scale-102 transition-transform duration-300"
+            
+          >
+            <motion.img
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              src="/Logos/CTCCLogo.webp"
+              alt="CTCC Logo"
+              className="w-72 mx-auto drop-shadow-sm"
+              style={{cursor:"pointer"}}
+              onClick={() => navigate('/')}
+            />
+          </motion.div>
+      </div>
       <button 
         onClick={handleBackToCategories}
         className="group mb-8 text-purple-600 hover:text-purple-800 flex items-center font-medium transition-colors"
@@ -598,6 +621,26 @@ function App() {
 
   const renderMemberProfile = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <div className="relative max-w-3xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-2xl p-6 mb-8 backdrop-blur-sm transform hover:scale-102 transition-transform duration-300"
+            
+          >
+            <motion.img
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              src="/Logos/CTCCLogo.webp"
+              alt="CTCC Logo"
+              className="w-72 mx-auto drop-shadow-sm"
+              style={{cursor:"pointer"}}
+              onClick={() => navigate('/')}
+            />
+          </motion.div>
+      </div>
       <button 
         onClick={handleBackToCategory}
         className="group mb-6 sm:mb-8 text-purple-600 hover:text-purple-800 flex items-center font-medium transition-colors"

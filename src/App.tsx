@@ -307,7 +307,7 @@ function App() {
               initial={{ y: 20 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              src="/Logos/CTCCLogo.webp"
+              src="/Logos/ctcc-logo.png"
               alt="CTCC Logo"
               className="w-72 mx-auto drop-shadow-sm"
             />
@@ -472,7 +472,7 @@ function App() {
               initial={{ y: 20 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              src="/Logos/CTCCLogo.webp"
+              src="/Logos/ctcc-logo.png"
               alt="CTCC Logo"
               className="w-72 mx-auto drop-shadow-sm"
               style={{cursor:"pointer"}}
@@ -522,7 +522,7 @@ function App() {
                 >
                   <div className="h-48 w-full relative bg-gray-100">
                     <img 
-                      src={member.logo ? (member.logo.startsWith('http') ? member.logo : `/Logos/${member.logo}`) : '/Logos/CTCCLogo.webp'} 
+                      src={member.logo ? (member.logo.startsWith('http') ? member.logo : `/Logos/${member.logo}`) : '/Logos/ctcc-logo.png'} 
                       alt={member.Name || `${member.Firstname} ${member.Lastname}`}
                       className="w-full h-full object-contain p-4"
                     />
@@ -639,7 +639,7 @@ function App() {
               initial={{ y: 20 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              src="/Logos/CTCCLogo.webp"
+              src="/Logos/ctcc-logo.png"
               alt="CTCC Logo"
               className="w-72 mx-auto drop-shadow-sm"
               style={{cursor:"pointer"}}
@@ -715,7 +715,7 @@ function App() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
               <div className="md:col-span-1">
                 <img 
-                  src={selectedMemberData.logo ? (selectedMemberData.logo.startsWith('http') ? selectedMemberData.logo : `/Logos/${selectedMemberData.logo}`) : '/Logos/CTCCLogo.webp'}
+                  src={selectedMemberData.logo ? (selectedMemberData.logo.startsWith('http') ? selectedMemberData.logo : `/Logos/${selectedMemberData.logo}`) : '/Logos/ctcc-logo.png'}
                   alt={selectedMemberData.Name || `${selectedMemberData.Firstname} ${selectedMemberData.Lastname}`}
                   className="w-full h-48 sm:h-64 rounded-xl shadow-md object-contain bg-gray-100 p-4"
                 />

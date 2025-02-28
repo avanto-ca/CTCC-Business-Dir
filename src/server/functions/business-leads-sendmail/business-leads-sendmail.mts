@@ -18,8 +18,8 @@ export const handler: Handler = async (event) => {
     const body = JSON.parse(event.body || '{}');
 
     const {
-        name, email, phone,message,
-        business_type,recipientEmail
+        name, email, phone, message,
+        businessType,recipientEmail
     } = body;
 
     // if (!firstName || !lastName || !email || !phone || !message) {
@@ -85,7 +85,7 @@ export const handler: Handler = async (event) => {
                     </tr>
                     <tr>
                       <td style="padding: 8px 0; color: #6b7280;">Business Type:</td>
-                      <td style="padding: 8px 0; color: #111827; font-weight: 500;">${business_type}</td>
+                      <td style="padding: 8px 0; color: #111827; font-weight: 500;">${businessType}</td>
                     </tr>
                   </table>
                 </div>
@@ -103,8 +103,7 @@ export const handler: Handler = async (event) => {
             <!-- Footer -->
             <div style="background-color: #f9fafb; padding: 24px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                This is an automated message from the CTCC Business Directory.
-                <br>Please do not reply to this email.
+                Please do not reply to this email.
               </p>
             </div>
           </div>

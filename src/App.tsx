@@ -372,6 +372,12 @@ function App() {
               {filteredMembers.map((member) => (
                 <div
                   key={member.id}
+                  onClick={() => {
+                    if (member.Firstname && member.Lastname) {
+                      handleMemberClick(member);
+                    }
+                  }}
+                  style={{cursor:"pointer"}}
                   className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
                 >
                   <h3 className="text-xl font-semibold mb-2">

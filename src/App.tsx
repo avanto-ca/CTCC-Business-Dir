@@ -263,12 +263,12 @@ function App() {
           member.Name || '',
           member.Firstname || '',
           member.Lastname || '',
-          // member.phone || '',
-          // member.address || '',
-          // member.aboutus || '',
-          // categoryName,
-          // category.description,
-          // ...category.seo_tags
+          member.phone || '',
+          member.address || '',
+          member.aboutus || '',
+          categoryName,
+          category.description,
+          ...category.seo_tags
         ];
 
         // Check if any field contains the search term

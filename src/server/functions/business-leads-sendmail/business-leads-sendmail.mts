@@ -37,10 +37,10 @@ export const handler: Handler = async (event) => {
     }
 
     // Determine recipients - always include admin, include member if they have an email
-    const recipients = ['admin@ctcc.ca'];
-    if (recipientEmail) {
-      recipients.unshift(recipientEmail);
-    }
+    // const recipients = ['admin@ctcc.ca'];
+    // if (recipientEmail) {
+    //   recipients.unshift(recipientEmail);
+    // }
 
     const { data, error } = await resend.emails.send({
       from: 'CTCC Directory <no-reply@smtp.ctcc.ca>',

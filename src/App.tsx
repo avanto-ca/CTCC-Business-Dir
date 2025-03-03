@@ -488,7 +488,8 @@ function App() {
         Back to Categories
       </button>
       <h2 className="text-3xl font-bold text-gray-900 mb-8">
-        {selectedCategory?.replace(/([A-Z])/g, ' $1').trim()}
+        {categories.find(c => c.url === selectedCategory)?.name.replace(/([A-Z])/g, ' $1').trim()}
+        {/* {selectedCategory?.replace(/([A-Z])/g, ' $1').trim()} */}
       </h2>
       <p className="text-sm text-gray-500 mb-8 italic">
         Note: Profiles are displayed in random order and refresh each time you visit

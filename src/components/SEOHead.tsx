@@ -37,7 +37,8 @@ export function SEOHead({ member, category, isHomePage = false }: SEOHeadProps) 
   if (isHomePage) {
     return (
       <Helmet>
-        <title>CTCC Business Directory - Tamil Chamber of Commerce</title>
+        {/* <title>CTCC Business Directory - Tamil Chamber of Commerce</title> */}
+        <title>Tamil Business Listings | Explore Tamil Businesses in Canada | CTCC Business Directory</title>
         <meta name="description" content="Find trusted Tamil professionals and businesses in your community. The Canadian Tamil Chamber of Commerce (CTCC) Business Directory connects you with qualified service providers." />
         <meta name="keywords" content="CTCC,Tamil business,Canadian Tamil Chamber of Commerce,Tamil professionals,business directory,Toronto Tamil business" />
         

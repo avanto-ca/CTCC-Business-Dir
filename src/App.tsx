@@ -205,10 +205,12 @@ function App() {
   };
 
   const handleBackToCategories = () => {
+    setSearchTerm("");
     navigate('/');
   };
 
   const handleBackToCategory = () => {
+    setSearchTerm("");
     if (selectedCategory) {
       setSelectedMemberData(null);
       navigate(`/${selectedCategory}`);
@@ -250,32 +252,65 @@ function App() {
   };
 
   const filteredMembers = selectedCategory
-    ? shuffledMembers
-    : searchTerm.trim() === '' ? [] : members.filter(member => {
-        const searchLower = searchTerm.toLowerCase().trim();
-        const category = categories.find(c => c.id === member.category_id);
-        if (!category) return false;
+  ? shuffledMembers
+  : searchTerm.trim() === ''
+  ? []
+  : members.filter(member => {
+      const searchLower = searchTerm.toLowerCase().trim();
+      const category = categories.find(c => c.id === member.category_id);
+      if (!category) return false;
+
+      const categoryName = category.name.replace(/([A-Z])/g, ' $1').trim();      
+
+      const priorityFields = [
+        `${member.Firstname || ''} ${member.Lastname || ''}`.trim(),
+        member.Name || '',
+        categoryName,
+        member.phone || '',
+        member.email || '',
+        member.sectionItem1||'',
+        member.sectionItem2||'',
+        member.sectionItem3||'',
+        member.sectionItem4||'',
+        member.sectionItem5||'',
+        // member.aboutus || '',
+        // category.description,
+        // ...category.seo_tags
+      ];
+
+      return priorityFields.some(field =>
+        field?.toLowerCase()?.includes(searchLower)
+      );
+    });
+
+
+  // const filteredMembers = selectedCategory
+  //   ? shuffledMembers
+  //   : searchTerm.trim() === '' ? [] : members.filter(member => {
+  //       const searchLower = searchTerm.toLowerCase().trim();
+  //       const category = categories.find(c => c.id === member.category_id);
+  //       if (!category) return false;
         
-        const categoryName = category.name.replace(/([A-Z])/g, ' $1').trim();
+  //       const categoryName = category.name.replace(/([A-Z])/g, ' $1').trim();
 
-        // Fields to search in
-        const searchFields = [
-          member.Name || '',
-          member.Firstname || '',
-          member.Lastname || '',
-          member.phone || '',
-          member.address || '',
-          member.aboutus || '',
-          categoryName,
-          category.description,
-          ...category.seo_tags
-        ];
+  //       // Fields to search in
+  //       const searchFields = [
+  //         member.Name || '',
+  //         member.Firstname || '',
+  //         member.Lastname || '',
+  //         member.phone || '',
+  //         member.address || '',
+  //         member.aboutus || '',
+  //         categoryName,
+  //         category.description,
+  //         ...category.seo_tags
+  //       ];
 
-        // Check if any field contains the search term
-        return searchFields.some(field =>
-          field?.toLowerCase()?.includes(searchLower)
-        );
-      });
+  //       // Check if any field contains the search term
+  //       return searchFields.some(field =>
+  //         field?.toLowerCase()?.includes(searchLower)
+  //       );
+  //     });
 
   const renderHome = () => (
     <div>
@@ -476,7 +511,7 @@ function App() {
               alt="CTCC Logo"
               className="w-72 mx-auto drop-shadow-sm"
               style={{cursor:"pointer"}}
-              onClick={() => navigate('/')}
+              onClick={() =>{ setSearchTerm(""); navigate('/')}}
             />
           </motion.div>
       </div>
@@ -644,7 +679,7 @@ function App() {
               alt="CTCC Logo"
               className="w-72 mx-auto drop-shadow-sm"
               style={{cursor:"pointer"}}
-              onClick={() => navigate('/')}
+              onClick={() =>{ setSearchTerm(""); navigate('/')}}
             />
           </motion.div>
       </div>

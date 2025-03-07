@@ -75,3 +75,19 @@
   border: none;
   border-radius: 0.75rem;
 }
+
+.bg-blue-100 { background-color: #DBEAFE; }
+.bg-orange-100 { background-color: #FFEDD5; }
+.bg-violet-100 { background-color: #EDE9FE; }
+.bg-fuchsia-100 { background-color: #FCE7F3; }
+.bg-purple-100 { background-color: #E9D5FF; }
+.bg-sky-100 { background-color: #E0F2FE; }
+.bg-cyan-100 { background-color: #CFFAFE; }
+.bg-pink-100 { background-color: #FCE7F3; }
+.bg-gray-100 { background-color: #F3F4F6; }
+.bg-green-100 { background-color: #DCFCE7; }
+.bg-teal-100 { background-color: #CCFBF1; }
+.bg-rose-100 { background-color: #FFE4E6; }
+.bg-emerald-100 { background-color: #D1FAE5; }
+.bg-amber-100 { background-color: #FEF3C7; }
+.bg-indigo-100 { background-color: #E0E7FF; }

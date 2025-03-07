@@ -458,7 +458,7 @@ function App() {
               key={category.name}
               onClick={() => handleCategoryClick(category.url)}
               // style={{backgroundColor:"red"}}
-              className={`group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:border-[#7A2B8F] border-2 border-transparent backdrop-blur-sm ${category.color.replace('bg-', 'hover:border-')}`}
+              className={`group relative ${category.color} rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:border-[#7A2B8F] border-2 border-transparent backdrop-blur-sm ${category.color.replace('bg-', 'hover:border-')}`}
             >
               <div className={`absolute inset-0 ${category.color} opacity-5 group-hover:opacity-10 transition-opacity`}></div>
               <div className="p-6">
@@ -469,7 +469,7 @@ function App() {
                     // style={{backgroundColor:category.color}}
                     className={`p-3 rounded-xl ${category.color} bg-opacity-15 transform group-hover:scale-110 transition-transform duration-300`}
                   >
-                    <Icon className={`w-6 h-6 ${category.color.replace('bg-', 'text-')}`} />
+                    <Icon className={`w-6 h-6 `} />
                   </motion.div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-gray-900">

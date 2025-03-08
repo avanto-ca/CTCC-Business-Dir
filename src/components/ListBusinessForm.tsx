@@ -78,7 +78,7 @@ export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
   const onRecaptchaChange = (value: string | null) => {
     console.log("Captcha value:", value);
     setRecaptchaToken(value);
-};
+  };
 
   const handleClose = () => {
     onClose();
@@ -227,7 +227,7 @@ export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
                     </div>
                     <div>
                       <ReCAPTCHA
-                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || ''}
                         onChange={onRecaptchaChange}
                       />
                     </div>

@@ -3,6 +3,7 @@ import { Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface ContactFormProps {
   recipientName: string;
@@ -12,6 +13,9 @@ interface ContactFormProps {
 
 
 export function ContactForm({ recipientName, recipientEmail }: ContactFormProps) {
+
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,9 +26,9 @@ export function ContactForm({ recipientName, recipientEmail }: ContactFormProps)
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  
+
 
   const handleSubmit = async (e: React.FormEvent) => {
 
@@ -33,6 +37,13 @@ export function ContactForm({ recipientName, recipientEmail }: ContactFormProps)
     setSubmitStatus('idle');
     setErrorMessage('');
 
+    if (!recaptchaToken) {
+      setErrorMessage('reCAPTCHA validation failed.');
+      setSubmitStatus('error');
+      console.error('reCAPTCHA validation failed.');
+      setIsSubmitting(false);
+      return;
+    }
     try {
       const pathParts = window.location.pathname.split('/');
       const category = pathParts[1];
@@ -82,8 +93,8 @@ export function ContactForm({ recipientName, recipientEmail }: ContactFormProps)
       const data = await response.json();
 
       if (response.ok) {
-        navigate('/thank-you', { 
-          state: { 
+        navigate('/thank-you', {
+          state: {
             recipientName,
             firstName: formData.firstName
           }
@@ -99,6 +110,12 @@ export function ContactForm({ recipientName, recipientEmail }: ContactFormProps)
       setIsSubmitting(false);
     }
   };
+
+  const onRecaptchaChange = (value: string | null) => {
+    console.log("Captcha value:", value);
+    setRecaptchaToken(value);
+  };
+
 
   return (
     <motion.div
@@ -182,6 +199,12 @@ export function ContactForm({ recipientName, recipientEmail }: ContactFormProps)
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
             value={formData.message}
             onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+          />
+        </div>
+        <div>
+          <ReCAPTCHA
+            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || ''}
+            onChange={onRecaptchaChange}
           />
         </div>
         <div className="flex items-center justify-between">

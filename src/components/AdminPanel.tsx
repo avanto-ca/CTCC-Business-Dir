@@ -111,65 +111,34 @@ export function AdminPanel() {
     }
   }
 
-  // async function handleSave(member: Member) {
-  //   try {
-  //     setIsUploading(true);
-      
-  //     // If we have a logo file, use just the filename
-  //     let logoPath = member.logo;
-  //     if (logoFile) {
-  //       const businessName = (member.Name || `${member.Firstname}${member.Lastname}`).toLowerCase();
-  //       const fileName = generateLogoFilename(logoFile, businessName || 'business');
-  //       logoPath = fileName;
-  //     }
-
-  //     // Save member with logo path
-  //     const { error } = await supabase
-  //       .from('members')
-  //       .upsert({
-  //         ...member,
-  //         logo: logoPath
-  //       });
-
-  //     if (error) throw error;
-      
-  //     setEditingMember(null);
-  //     setLogoFile(null);
-  //     fetchMembers();
-  //   } catch (error) {
-  //     setError('Failed to save member');
-  //     console.error('Error:', error);
-  //   } finally {
-  //     setIsUploading(false);
-  //   }
-  // }
-
   async function handleSave(member: Member) {
     try {
       setIsUploading(true);
+      
       let logoPath = member.logo;
   
       if (logoFile) {
-        const formData = new FormData();
-        formData.append("file", logoFile);
+        const businessName = (member.Name || `${member.Firstname}${member.Lastname}`).toLowerCase();
+        const fileName = generateLogoFilename(logoFile, businessName || 'business');
   
-        const response = await fetch("/.netlify/functions/image-upload", {
-          method: "POST",
-          body: formData,
-        });
+        // Upload file to Supabase Storage (logos bucket)
+        const { data, error: uploadError } = await supabase.storage
+          .from('logos')
+          .upload(`members/${fileName}`, logoFile, { upsert: true });
   
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.error);
+        if (uploadError) throw uploadError;
   
-        logoPath = result.filePath; // File path returned from Netlify Function
+        // Get the public URL of the uploaded file
+        const { data: publicUrlData } = supabase.storage.from('logos').getPublicUrl(`members/${fileName}`);
+        logoPath = publicUrlData.publicUrl;
       }
   
-      // Save member data in the database
+      // Save member with updated logo path
       const { error } = await supabase
-        .from("members")
+        .from('members')
         .upsert({
           ...member,
-          logo: logoPath,
+          logo: logoPath
         });
   
       if (error) throw error;
@@ -178,12 +147,54 @@ export function AdminPanel() {
       setLogoFile(null);
       fetchMembers();
     } catch (error) {
-      setError("Failed to save member");
-      console.error("Error:", error);
+      setError('Failed to save member');
+      console.error('Error:', error);
     } finally {
       setIsUploading(false);
     }
   }
+  
+
+  // async function handleSave(member: Member) {
+  //   try {
+  //     setIsUploading(true);
+  //     let logoPath = member.logo;
+  
+  //     if (logoFile) {
+  //       const formData = new FormData();
+  //       formData.append("file", logoFile);
+  
+  //       const response = await fetch("/.netlify/functions/image-upload", {
+  //         method: "POST",
+  //         body: formData,
+  //       });
+  
+  //       const result = await response.json();
+  //       if (!response.ok) throw new Error(result.error);
+  
+  //       logoPath = result.filePath; // File path returned from Netlify Function
+  //     }
+  
+  //     // Save member data in the database
+  //     const { error } = await supabase
+  //       .from("members")
+  //       .upsert({
+  //         ...member,
+  //         logo: logoPath,
+  //       });
+  
+  //     if (error) throw error;
+  
+  //     setEditingMember(null);
+  //     setLogoFile(null);
+  //     fetchMembers();
+  //   } catch (error) {
+  //     setError("Failed to save member");
+  //     console.error("Error:", error);
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // }
   
 
   async function handleDelete(id: number) {

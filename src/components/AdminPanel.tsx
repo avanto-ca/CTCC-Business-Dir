@@ -153,7 +153,7 @@ export function AdminPanel() {
         const formData = new FormData();
         formData.append("file", logoFile);
   
-        const response = await fetch("/.netlify/functions/image-upload", {
+        const response = await fetch("/.netlify/functions/upload", {
           method: "POST",
           body: formData,
         });

@@ -144,7 +144,7 @@ export function AdminPanel() {
   //   }
   // }
 
-  async function handleSave(member: Member, logoFile: File | null) {
+  async function handleSave(member: Member) {
     try {
       setIsUploading(true);
       let logoPath = member.logo;

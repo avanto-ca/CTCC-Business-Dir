@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Loader2, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-// import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface ListBusinessFormProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface ListBusinessFormProps {
 
 export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
 
-  // const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -30,13 +30,13 @@ export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
     setSubmitStatus('idle');
     setErrorMessage('');
 
-    // if (!recaptchaToken) {
-    //   setErrorMessage('reCAPTCHA validation failed.');
-    //   setSubmitStatus('error');
-    //   console.error('reCAPTCHA validation failed.');
-    //   setIsSubmitting(false);
-    //   return;
-    // }
+    if (!recaptchaToken) {
+      setErrorMessage('reCAPTCHA validation failed.');
+      setSubmitStatus('error');
+      console.error('reCAPTCHA validation failed.');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       if (!supabase) throw new Error('Supabase client not initialized');
@@ -75,10 +75,10 @@ export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
     }
   };
 
-//   const onRecaptchaChange = (value: string | null) => {
-//     console.log("Captcha value:", value);
-//     setRecaptchaToken(value);
-// };
+  const onRecaptchaChange = (value: string | null) => {
+    console.log("Captcha value:", value);
+    setRecaptchaToken(value);
+};
 
   const handleClose = () => {
     onClose();
@@ -225,12 +225,12 @@ export function ListBusinessForm({ isOpen, onClose }: ListBusinessFormProps) {
                         placeholder="Tell us more about your business..."
                       />
                     </div>
-                    {/* <div>
+                    <div>
                       <ReCAPTCHA
                         sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
                         onChange={onRecaptchaChange}
                       />
-                    </div> */}
+                    </div>
                     {submitStatus === 'error' && (
                       <p className="text-red-600 text-sm">{errorMessage}</p>
                     )}

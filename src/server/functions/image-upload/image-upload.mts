@@ -3,8 +3,8 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 
-// Import Busboy dynamically
-const Busboy = require("busboy");
+// Correctly import Busboy
+const Busboy = require("busboy").Busboy;
 
 export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResponse> => {
   if (event.httpMethod !== "POST") {

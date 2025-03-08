@@ -120,19 +120,8 @@ export function AdminPanel() {
       if (logoFile) {
         const businessName = (member.Name || `${member.Firstname}${member.Lastname}`).toLowerCase();
         const fileName = generateLogoFilename(logoFile, businessName || 'business');
-  
-        // Upload file to Supabase Storage (logos bucket)
-        const { data, error: uploadError } = await supabase.storage
-          .from('logos')
-          .upload(`members/${fileName}`, logoFile, { upsert: true });
-  
-        if (uploadError) throw uploadError;
-  
-        // Get the public URL of the uploaded file
-        const { data: publicUrlData } = supabase.storage.from('logos').getPublicUrl(`members/${fileName}`);
-        logoPath = publicUrlData.publicUrl;
+        logoPath = fileName;
       }
-  
       // Save member with updated logo path
       const { error } = await supabase
         .from('members')
@@ -263,15 +252,15 @@ export function AdminPanel() {
       {error && (
         <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-8">
           <div className="flex">
-            <div className="flex-shrink-0">
-              <X className="h-5 w-5 text-red-400" />
+            <div className="flex-shrink-0" style={{cursor:'pointer'}} >
+              <X onClick={()=>setError(null)} className="h-5 w-5 text-red-400" />
             </div>
             <div className="ml-3">
               <p className="text-sm text-red-700">{error}</p>
             </div>
           </div>
         </div>
-      )}
+       )}
 
       <div className="mb-8">
         <div className="relative">
@@ -282,7 +271,7 @@ export function AdminPanel() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+          {searchTerm?<X style={{cursor:'pointer'}} onClick={()=>setSearchTerm('')} className="absolute right-3 top-2.5 h-5 w-5 text-red-400" />:<Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />}
         </div>
       </div>
 

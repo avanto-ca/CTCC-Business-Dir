@@ -111,38 +111,80 @@ export function AdminPanel() {
     }
   }
 
-  async function handleSave(member: Member) {
+  // async function handleSave(member: Member) {
+  //   try {
+  //     setIsUploading(true);
+      
+  //     // If we have a logo file, use just the filename
+  //     let logoPath = member.logo;
+  //     if (logoFile) {
+  //       const businessName = (member.Name || `${member.Firstname}${member.Lastname}`).toLowerCase();
+  //       const fileName = generateLogoFilename(logoFile, businessName || 'business');
+  //       logoPath = fileName;
+  //     }
+
+  //     // Save member with logo path
+  //     const { error } = await supabase
+  //       .from('members')
+  //       .upsert({
+  //         ...member,
+  //         logo: logoPath
+  //       });
+
+  //     if (error) throw error;
+      
+  //     setEditingMember(null);
+  //     setLogoFile(null);
+  //     fetchMembers();
+  //   } catch (error) {
+  //     setError('Failed to save member');
+  //     console.error('Error:', error);
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // }
+
+  async function handleSave(member: Member, logoFile: File | null) {
     try {
       setIsUploading(true);
-      
-      // If we have a logo file, use just the filename
       let logoPath = member.logo;
+  
       if (logoFile) {
-        const businessName = (member.Name || `${member.Firstname}${member.Lastname}`).toLowerCase();
-        const fileName = generateLogoFilename(logoFile, businessName || 'business');
-        logoPath = fileName;
+        const formData = new FormData();
+        formData.append("file", logoFile);
+  
+        const response = await fetch("/.netlify/functions/upload", {
+          method: "POST",
+          body: formData,
+        });
+  
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+  
+        logoPath = result.filePath; // File path returned from Netlify Function
       }
-
-      // Save member with logo path
+  
+      // Save member data in the database
       const { error } = await supabase
-        .from('members')
+        .from("members")
         .upsert({
           ...member,
-          logo: logoPath
+          logo: logoPath,
         });
-
+  
       if (error) throw error;
-      
+  
       setEditingMember(null);
       setLogoFile(null);
       fetchMembers();
     } catch (error) {
-      setError('Failed to save member');
-      console.error('Error:', error);
+      setError("Failed to save member");
+      console.error("Error:", error);
     } finally {
       setIsUploading(false);
     }
   }
+  
 
   async function handleDelete(id: number) {
     if (!confirm('Are you sure you want to delete this member?')) return;
